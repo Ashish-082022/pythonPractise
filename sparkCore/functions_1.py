@@ -37,12 +37,12 @@ def func(st):
     elif(st=="OH"):return "50% off"
     else:return "500/- off"
 #by default spark unable to understand python functions.so convert python/scala/java function to UDF(spark able to understant udfs)
-'''uf=udf(func)
+'''uf = udf(func)
 ndf=df.withColumn("offer",uf(col("state")))
 ndf.printSchema()
 ndf.show(truncate=False)
 '''
-uf=udf(func)
+uf = udf(func)
 spark.udf.register("offer",uf) #user define fuctions convert to sql function
 ndf=spark.sql("select *,offer(state) todayoffers from tab")
 ndf.printSchema()
